@@ -2,10 +2,11 @@ use actix_cors::Cors;
 use actix_web::{ http::header, web::{self, ServiceConfig}};
 use dotenv::dotenv;
 use shuttle_actix_web::ShuttleActixWeb;
-use sqlx::{postgres::PgPoolOptions, Postgres,Pool};
+use sqlx::{pool, postgres::PgPoolOptions, Pool, Postgres};
 use std::env;
 
 mod routes;
+pub mod models;
 
 #[derive(Clone)]
 struct AppState {
@@ -26,8 +27,9 @@ async fn main() -> ShuttleActixWeb<impl FnOnce(&mut ServiceConfig) + Send + Clon
         .connect(&database_url)
         .await
         .unwrap();
+    println!("connected to pool ✅");
 
-    println!("server started successfully!!");
+    println!("server started successfully!! 🚀");
 
     let state = web::Data::new(AppState { pool });
 
@@ -43,7 +45,7 @@ async fn main() -> ShuttleActixWeb<impl FnOnce(&mut ServiceConfig) + Send + Clon
             .supports_credentials();
 
         cfg.service(
-            web::scope("/app")
+            web::scope("/api")
                 .wrap(cors)
                 .service(routes::hello_world)
                 .service(routes::toastx)
