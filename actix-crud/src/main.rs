@@ -6,7 +6,7 @@ use sqlx::{pool, postgres::PgPoolOptions, Pool, Postgres};
 use std::env;
 
 mod routes;
-pub mod models;
+mod models;
 
 #[derive(Clone)]
 struct AppState {
@@ -47,8 +47,12 @@ async fn main() -> ShuttleActixWeb<impl FnOnce(&mut ServiceConfig) + Send + Clon
         cfg.service(
             web::scope("/api")
                 .wrap(cors)
-                .service(routes::hello_world)
-                .service(routes::toastx)
+                .service(routes::create_todo)
+                .service(routes::update_todo)
+                .service(routes::delete_todo)
+                .service(routes::get_todo_by_id)
+                .service(routes::get_todo_items)
+                .service(routes::health_checker_endpoint)
                 .app_data(state),
         );
     };

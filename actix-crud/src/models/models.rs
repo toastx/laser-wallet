@@ -9,7 +9,7 @@ use chrono;
 pub struct TodoModel{
     pub id: Uuid,
     pub name: String,
-    pub description:String,
+    pub description:Option<String>,
     pub completed:bool,
     pub created_at:Option<chrono::DateTime<chrono::Utc>>,
 }
@@ -23,7 +23,8 @@ pub struct CreateTodoItem{
 
 #[derive(Debug,FromRow,Deserialize,Serialize)]
 pub struct UpdateTodoItem{
-    pub id: Uuid,
+    pub name: String,
+    pub description: Option<String>,
     pub completed: bool
 }
 

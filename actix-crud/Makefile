@@ -32,3 +32,14 @@ create_postgres_database:
 start_docker_db:
 	docker start ${DB_DOCKER_CONTAINER}
 
+create_migrations:
+	sqlx migrate add -r init
+
+migrate_up:
+	sqlx migrate run
+
+migrate_down:
+	sqlx migrate revert
+
+
+
