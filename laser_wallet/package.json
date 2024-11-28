@@ -1,0 +1,32 @@
+{
+  "name": "laser_wallet",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "tauri": "tauri"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@originjs/vite-plugin-commonjs": "^1.0.3",
+    "@scure/bip39": "^1.5.0",
+    "@solana/web3.js": "^1.95.5",
+    "@solidjs/router": "^0.15.1",
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-shell": "^2",
+    "@types/bip39": "^3.0.4",
+    "bs58": "^6.0.0",
+    "solid-js": "^1.7.8",
+    "tweetnacl": "^1.0.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",
+    "vite": "^5.3.1",
+    "vite-plugin-solid": "^2.8.0",
+    "@tauri-apps/cli": "^2"
+  }
+}
