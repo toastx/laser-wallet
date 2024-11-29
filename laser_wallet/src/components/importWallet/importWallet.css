@@ -1,0 +1,48 @@
+.seed-phrase-input {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 6 columns */
+    gap: 1rem; /* Space between inputs */
+    max-width: 600px; /* Optional: Limit the width for better alignment */
+    margin: auto; /* Center the grid horizontally */
+}
+
+.seed-phrase-input-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.seed-phrase-input-item input {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.seed-phrase-input-item span {
+    margin-top: 0.25rem;
+    font-size: 0.8rem;
+    color: gray;
+}
+
+.wallet-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem; /* Space between grid and button */
+  }
+
+.import-wallet-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.word-count-selector {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
