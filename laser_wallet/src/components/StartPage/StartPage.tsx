@@ -20,6 +20,9 @@ function StartPage() {
   };
 
   return (<div class="start-page">
+    <div>
+        <h1>Welcome to Laser Wallet</h1>
+    </div>
     <div class="wallet-options">
       <button onClick={newWallet}>Create a new wallet</button>
       <button onClick={importWallet}>Import existing wallet</button>

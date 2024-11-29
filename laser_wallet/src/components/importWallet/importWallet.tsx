@@ -2,13 +2,18 @@ import { createSignal } from "solid-js";
 import { Keypair } from "@solana/web3.js";
 import { mnemonicToSeed } from "@scure/bip39";
 import bs58 from "bs58";
+import { useNavigate } from "@solidjs/router";
 
-import "./importWallet.css";
-
+import styles from "./importWallet.module.css";
 const ImportWallet = () => {
+  const navigate = useNavigate();
   const [wordCount, setWordCount] = createSignal<12 | 24>(12);
   const [phraseArray, setPhraseArray] = createSignal<string[]>(Array(12).fill(""));
   const [keypair, setKeypair] = createSignal<Keypair | null>(null);
+
+  const home = async () => {
+    navigate("/home");
+  };
 
   const handleWordCountChange = (count: 12 | 24) => {
     setWordCount(count);
@@ -48,9 +53,9 @@ const ImportWallet = () => {
   };
 
   return (
-    <div class="import-wallet-container">
+    <div class={styles.importWalletContainer}>
       <h2>Import Solana Wallet</h2>
-      <div class="word-count-selector">
+      <div class={styles.wordCountSelector}>
         <label>
           <input
             type="radio"
@@ -69,19 +74,19 @@ const ImportWallet = () => {
         </label>
       </div>
       <form
-        class="wallet-form"
+        class={styles.walletForm}
         onSubmit={(e) => {
           e.preventDefault();
           generateWallet();
         }}
       >
-        <div class="seed-phrase-input">
+        <div class={styles.seedPhraseInput}>
           {phraseArray().map((word, index) => (
-            <div class="seed-phrase-input-item">
+            <div class={styles.seedPhraseInputItem}>
               <input
                 type="text"
                 value={word}
-                onInput={(e) => updateWord(index, e.currentTarget.value)}
+                on:input={(e) => updateWord(index, e.currentTarget.value)}
               />
               <span>{index + 1}</span>
             </div>
@@ -96,7 +101,9 @@ const ImportWallet = () => {
           <p>
             <strong>Public Key:</strong> {keypair()?.publicKey.toBase58()}
           </p>
+          <button onClick={home} class={styles.homeButton}>Continue</button>
         </div>
+        
       )}
     </div>
   );

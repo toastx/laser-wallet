@@ -1,0 +1,95 @@
+.container {
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 2rem;
+max-width: 800px;
+margin: 0 auto;
+text-align: center;
+}
+
+.generateButton {
+padding: 12px 24px;
+font-size: 1.1rem;
+cursor: pointer;
+background-color: #512da8;
+color: white;
+border: none;
+border-radius: 8px;
+margin: 1rem 0;
+transition: background-color 0.3s;
+}
+
+.generateButton:hover {
+background-color: #311b92;
+}
+
+.walletDetails {
+width: 100%;
+margin-top: 2rem;
+}
+
+.seedPhraseContainer {
+margin: 1.5rem 0;
+}
+
+.seedPhraseGrid {
+display: grid;
+grid-template-columns: repeat(6, 1fr);
+gap: 12px;
+margin: 1rem auto;
+max-width: 800px;
+padding: 1rem;
+}
+
+.seedWord {
+position: relative;
+padding: 12px;
+background-color: gray;
+border: 1px solid #bdbdbd;
+border-radius: 6px;
+font-family: monospace;
+}
+
+.wordIndex {
+position: absolute;
+top: 4px;
+left: 4px;
+font-size: 0.7rem;
+color: #666;
+}
+
+.buttonGroup {
+display: flex;
+gap: 1rem;
+justify-content: center;
+margin: 1rem 0;
+}
+
+.actionButton {
+padding: 10px 20px;
+cursor: pointer;
+background-color: #4caf50;
+color: white;
+border: none;
+border-radius: 6px;
+transition: background-color 0.3s;
+}
+
+.actionButton:hover {
+background-color: #388e3c;
+}
+
+.warning {
+margin-top: 1.5rem;
+padding: 1rem;
+background-color: #fff3e0;
+border: 1px solid #ffe0b2;
+border-radius: 6px;
+color: #e65100;
+}
+
+.homeButton {
+    padding: 10px 20px;
+    cursor: pointer;
+}

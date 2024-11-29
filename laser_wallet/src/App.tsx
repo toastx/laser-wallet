@@ -3,17 +3,19 @@ import StartPage from "./components/StartPage/StartPage";
 import newWallet from "./components/newWallet/newWallet";
 import importWallet from "./components/importWallet/importWallet";
 import { Route, Router } from "@solidjs/router";
+import Home from "./components/home/Home";
 
 function App() {
   
 
   return (
     <div>
-      <h1>Welcome to Laser Wallet</h1>
+      
       <Router>
         <Route path="/" component={StartPage} />
         <Route path="/newWallet" component={newWallet} />
         <Route path="/importWallet" component={importWallet} />
+        <Route path="/home" component={Home} />
       </Router>
       {/* {<StartPage />} */}
       </div>
