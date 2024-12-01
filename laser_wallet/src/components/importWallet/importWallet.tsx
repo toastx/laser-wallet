@@ -5,13 +5,22 @@ import bs58 from "bs58";
 import { useNavigate } from "@solidjs/router";
 
 import styles from "./importWallet.module.css";
+import { invoke } from "@tauri-apps/api/core";
+
 const ImportWallet = () => {
   const navigate = useNavigate();
   const [wordCount, setWordCount] = createSignal<12 | 24>(12);
   const [phraseArray, setPhraseArray] = createSignal<string[]>(Array(12).fill(""));
   const [keypair, setKeypair] = createSignal<Keypair | null>(null);
 
-  const home = async () => {
+  const storeWallet = async () => {
+    // await invoke('store_wallet', {
+    //   wallet: {
+    //     publicKey: keypair()!.publicKey.toBase58(),
+    //     privateKey: bs58.encode(keypair()!.secretKey),
+    //   }
+    // });
+
     navigate("/home");
   };
 
@@ -44,9 +53,7 @@ const ImportWallet = () => {
       const seed = await mnemonicToSeed(phrase);
       const generatedKeypair = Keypair.fromSeed(seed.slice(0, 32));
       setKeypair(generatedKeypair);
-      console.log("Seed Phrase:", phrase);
-      console.log("Public Key:", generatedKeypair.publicKey.toBase58());
-      console.log("Private Key (Base58):", bs58.encode(generatedKeypair.secretKey));
+      
     } catch (error) {
       alert!(`Failed to generate wallet: ${error}`);
     }
@@ -72,7 +79,7 @@ const ImportWallet = () => {
           />
           24 words
         </label>
-      </div>
+      </div> 
       <form
         class={styles.walletForm}
         onSubmit={(e) => {
@@ -101,7 +108,7 @@ const ImportWallet = () => {
           <p>
             <strong>Public Key:</strong> {keypair()?.publicKey.toBase58()}
           </p>
-          <button onClick={home} class={styles.homeButton}>Continue</button>
+          <button onClick={storeWallet} class={styles.homeButton}>Continue</button>
         </div>
         
       )}

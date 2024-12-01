@@ -22,4 +22,12 @@ tauri = { version = "2", features = [] }
 tauri-plugin-shell = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+bip39 = { version = "2.1.0", features = ["rand"] }
+solana-web3-sys = "0.1.1"
+solana-sdk = "1.17"
+futures = "0.3.31"
+aes = "0.8.4"
+tauri-plugin-store = "2.1.0"
+tauri-plugin-fs = "2"
+
 

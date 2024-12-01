@@ -1,59 +1,50 @@
 import { createSignal } from "solid-js";
-import { Keypair, PublicKey } from '@solana/web3.js';
-import { generateMnemonic, mnemonicToSeedSync} from '@scure/bip39';
-import { wordlist } from '@scure/bip39/wordlists/english';
-import { Connection } from "@solana/web3.js";
+import { entropyToMnemonic } from "@scure/bip39";
+import { wordlist } from "@scure/bip39/wordlists/english";
 import styles from "./newWallet.module.css";
 import { useNavigate } from "@solidjs/router";
+import { invoke } from "@tauri-apps/api/core";
+import { PublicKey } from "@solana/web3.js";
 
 
-const connection = new Connection("https://mainnet.helius-rpc.com/?api-key=05c3bb84-2447-46fa-b7bf-038ace8035a4");
 const newWallet = () => {
   const navigate = useNavigate();
-  const [wallet, setWallet] = createSignal<{ publicKey: string; seedPhrase: string} | null>({publicKey: "", seedPhrase: ""});
-
-  const home = async () => {
-    navigate("/home");
-  };
+  const [wallet, setWallet] = createSignal<{ publicKey: string; seedPhrase: string;} | null>({publicKey: "", seedPhrase: ""});
 
   const generateWallet = async () => {
 
       console.log("Generating wallet...");
-      try {
-        const seedPhrase = generateMnemonic(wordlist);
-        const seed = mnemonicToSeedSync(seedPhrase);
-        
-        const keypair = Keypair.fromSeed(seed.slice(0, 32))
-        if (await checkKeypair(keypair.publicKey.toBase58())) {
-          setWallet({
-            publicKey: keypair.publicKey.toBase58(),
-            seedPhrase: seedPhrase,
-          });
-        }
+    try {
       
-      } catch (error) {
-        console.log("Error generating wallet:", error);
-        
+      const generatedWallet: { seed: any, public_key: string } = await invoke('generate_wallet');
+      const seed_phrase = new Uint8Array(generatedWallet.seed);
+      const seedPhrase = entropyToMnemonic(seed_phrase, wordlist);
+      const publicKey = new PublicKey(generatedWallet.public_key);
+      
+      setWallet({
+        publicKey: publicKey.toBase58(),
+        seedPhrase: seedPhrase,
+        });
       }
-    
+      catch (error) {
+        console.log("Error generating wallet:", error);
+      }
+  };
+
+  const storeWallet = async () => {
+    // await invoke('store_wallet', {
+    //   wallet: {
+    //     publicKey: wallet()!.publicKey,
+    //     privateKey: wallet()!.privateKey,
+    //   }
+    // });
+    navigate("/home");
   };
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text).then(() => {
       alert('Copied to clipboard!');
     });
-  };
-
-  const checkKeypair = async (publicKey: string) => {
-    const accountInfo = await connection.getAccountInfo(new PublicKey(publicKey));
-    if (accountInfo) {
-      console.log("Keypair already associated with an account.");
-      console.log(accountInfo.owner.toBase58());
-      return false;
-    } else {
-      
-      return true;
-    }
   };
 
   const downloadSeedPhrase = () => {
@@ -106,7 +97,7 @@ const newWallet = () => {
             ⚠️ Warning: Please save your seed phrase securely. 
             You won't be able to recover it once you leave this page!
           </div>
-          <button onClick={home} class={styles.homeButton}>Continue</button>
+          <button onClick={storeWallet} class={styles.homeButton}>Continue</button>
         </div>
 
       )}
