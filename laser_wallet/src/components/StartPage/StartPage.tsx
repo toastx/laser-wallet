@@ -9,19 +9,22 @@ console.log("StartPage component rendering");
 function StartPage() {
   const navigate = useNavigate();
 
-  // onMount(async () => {
-  //   try {
-  //     const existingWallet = await invoke('get_stored_wallet');
-  //     if (existingWallet) {
-  //       navigate("/home");
-  //     } else {
-  //       navigate("/wallet-setup"); // or whatever route you use for wallet creation/import
-  //     }
-  //   } catch (error) {
-  //     console.error("Error checking stored wallet:", error);
-  //     navigate("/wallet-setup"); // Fallback to wallet setup on error
-  //   }
-  // });
+  onMount(async () => {
+    try {
+      
+      const existingWallet = await invoke('fetch_wallet', { password: "passwordpasswordpasswordpassword" });
+      console.log("existingWallet: ", existingWallet);
+      if (existingWallet) {
+        console.log("navigating to home");
+        await navigate("/home");
+      } else {
+        navigate("/wallet-setup"); // or whatever route you use for wallet creation/import
+      }
+    } catch (error) {
+      console.error("Error checking stored wallet:", error);
+      navigate("/wallet-setup"); // Fallback to wallet setup on error
+    }
+  });
 
   const newWallet = async () => {
     console.log("new wallet");

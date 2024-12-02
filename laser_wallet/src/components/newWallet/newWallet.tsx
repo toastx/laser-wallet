@@ -32,12 +32,8 @@ const newWallet = () => {
   };
 
   const storeWallet = async () => {
-    // await invoke('store_wallet', {
-    //   wallet: {
-    //     publicKey: wallet()!.publicKey,
-    //     privateKey: wallet()!.privateKey,
-    //   }
-    // });
+    await invoke('store_wallet', { password: "passwordpasswordpasswordpassword" });
+    console.log("Wallet stored");
     navigate("/home");
   };
 
