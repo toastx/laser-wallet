@@ -3,6 +3,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { PublicKey } from "@solana/web3.js";
 import styles from "./Home.module.css";
 import PortfolioViewer from "../ui/PortfolioViewer";
+import WalletActions from "../ui/WalletActions";
 
 function Home() {
     const [pubkey, setPubkey] = createSignal<any>(null);
@@ -24,7 +25,9 @@ function Home() {
 
     
     return (!pubkey() && 
-        <div>
+        <div class={styles.homeContainer}>
+            
+            <WalletActions />
             <PortfolioViewer totalBalance={totalBalance} holdings={tokens} pubkey={ pubkey()} />
         </div>);
 }
