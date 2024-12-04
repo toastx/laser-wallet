@@ -1,6 +1,6 @@
 mod wallet;
 use tauri::State;
-
+mod transactions;
 mod fs;
 use tauri_plugin_fs::FsExt;
 use std::sync::Mutex;
@@ -38,6 +38,12 @@ fn fetch_wallet(state: State<AppState>,password: String) -> Result<(bool), Strin
 fn get_seed(state: State<AppState>) -> Result<Vec<u8>, String> {
     let seed_lock = state.seed.lock().unwrap();
     Ok(seed_lock.clone().unwrap())
+}
+
+#[tauri::command]
+fn transfer_asset(state: State<AppState>, recipient_pubkey: String, lamports: u64) -> Result<(), String> {
+    let tx = transactions::transfer_asset(&state, &transactions::create_connection()?, recipient_pubkey, lamports);
+    Ok(())
 }
 
 

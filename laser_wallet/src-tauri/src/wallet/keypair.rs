@@ -22,8 +22,6 @@ pub struct NewWallet {
     public_key: Pubkey,
 }
 
-
-
 pub fn encrypt_wallet(password: String, seed: Vec<u8>) -> Result<Vec<u8>, String> {
     let key = password.as_bytes();
     let aes_key = GenericArray::from_slice(key);

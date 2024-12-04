@@ -24,8 +24,8 @@ function Home() {
 
     
     return (!pubkey() && 
-        <div>{pubkey()}
-            <PortfolioViewer totalBalance={totalBalance} holdings={tokens} />
+        <div>
+            <PortfolioViewer totalBalance={totalBalance} holdings={tokens} pubkey={ pubkey()} />
         </div>);
 }
 
