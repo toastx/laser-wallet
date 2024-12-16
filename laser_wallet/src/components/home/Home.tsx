@@ -18,6 +18,7 @@ function Home() {
         { symbol: "BTC", balance: 0.5, value: 20000, price: 40000 },
         { symbol: "ETH", balance: 2.0, value: 4000, price: 2000 },
         { symbol: "USDT", balance: 500, value: 500, price: 1 },
+        { symbol: "SOL", balance: 10, value: 2000, price: 200 },
     ];
     const totalBalance = tokens.reduce((acc, token) => acc + token.value, 0);
     
